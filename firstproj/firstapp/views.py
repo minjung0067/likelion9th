@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
-from .models import Blog
+from .models import Blog, Comment, Category
 
 # Create your views here.
 
@@ -14,12 +14,16 @@ def main(request):
 
 def detail(request, id):
     detail_data = get_object_or_404(Blog, pk=id)
+    comments = Comment.objects.filter(blog=id)
+
     context = {
         'title' : detail_data.title,
         'writer' : detail_data.writer,
         'body' : detail_data.body,
         'pub_date' : detail_data.pub_date,
+        'image' : detail_data.image,
         'id' : id,
+        'comments':comments,
     }
     return render(request, 'detail.html', context)
 
@@ -32,6 +36,9 @@ def create(request):
     new_data.writer = request.POST['writer']
     new_data.body = request.POST['body']
     new_data.pub_date = timezone.now()
+
+    #여기 추가
+    new_data.image = request.FILES['image']
     new_data.save()
     return redirect('main')
 

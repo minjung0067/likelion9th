@@ -14,8 +14,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from firstapp.views import main, detail, create_page, create, update_page, update, delete
+
+from django.conf import settings
+from django.conf.urls.static import static
+# 위 부분은 장고 미디어 파일을 사용하기 위해 업로드 해야
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +29,7 @@ urlpatterns = [
     path('update_page/<int:id>/', update_page, name="update_page"),
     path('update/<int:id>/', update, name="update"),
     path('delete/<int:id>/', delete, name="delete"),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+
+# urlpatterns += + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
