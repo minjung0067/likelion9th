@@ -1,4 +1,4 @@
-## likelion9th 20210522 session
+## 20210522 session
 
 - CRUD
 - foreign key
