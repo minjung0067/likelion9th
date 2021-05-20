@@ -1,9 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
-from .models import Blog, Comment, Category
-
-# Create your views here.
+from .models import Blog, Comment
 
 def main(request):
     blogs = Blog.objects.all()
