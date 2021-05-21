@@ -11,15 +11,25 @@
     <h2>작성자 : {{writer}}</p>
     <h5>작성일 : {{pub_date}}</p>
     <p>내용 : {{body}}</p>
+    <img src="{{image.url}}" height = 300>
+
     <a href="{% url 'update_page' id %}">수정</a>
     <a href="{% url 'delete' id %}">삭제</a>
+    <h4> --------- 댓글 -----------</h4>
 
-
-    <h2> ---------------- 댓글 ------------------</h2>
     {% for comment in comments %}
-
-    <p>{{ comment.user }}: {{ comment.content }} {{comment.date }}</p>
-
+    <p> {{comment.user}} : {{comment.content}} {{comment.date}}</p>
+    <a href="{% url 'delete_comment' id comment.id %}">삭제하기</a>
     {% endfor %}
+
+
+    <h4> --------- 댓글 작성하기 -----------</h4>
+    <form action="{% url 'create_comment' id %}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>사용자 : <input type= "text" name = "user"></p>
+        <p> 댓글내용 : <input type= "text" name = "content"></p>
+        <button type="submit">작성</button>
+    </form>
+
 </body>
 </html>
