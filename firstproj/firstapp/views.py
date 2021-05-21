@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
-from .models import Blog, Comment
+from .models import Blog
 
 def main(request):
     blogs = Blog.objects.all()
@@ -21,7 +21,7 @@ def detail(request, id):
         'pub_date' : detail_data.pub_date,
         'image' : detail_data.image,
         'id' : id,
-        'comments':comments,
+        # 'comments':comments,
     }
     return render(request, 'detail.html', context)
 
@@ -64,3 +64,4 @@ def delete(request, id):
     delete_data = get_object_or_404(Blog, pk=id)
     delete_data.delete()
     return redirect('main')
+

@@ -29,7 +29,4 @@ urlpatterns = [
     path('update_page/<int:id>/', update_page, name="update_page"),
     path('update/<int:id>/', update, name="update"),
     path('delete/<int:id>/', delete, name="delete"),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
-
-# urlpatterns += + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] 

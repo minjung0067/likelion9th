@@ -11,8 +11,6 @@
     <h2>작성자 : {{writer}}</p>
     <h5>작성일 : {{pub_date}}</p>
     <p>내용 : {{body}}</p>
-
-    <img src="{{image.url}}" height = 300 >
     <a href="{% url 'update_page' id %}">수정</a>
     <a href="{% url 'delete' id %}">삭제</a>
 
