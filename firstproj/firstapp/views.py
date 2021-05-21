@@ -47,6 +47,7 @@ def update_page(request, id):
         'title' : update_data.title,
         'writer' : update_data.writer,
         'body' : update_data.body,
+        'image' : update_data.image,
     }
     return render(request, 'update.html', context)
 
