@@ -14,7 +14,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from firstapp.views import main, detail, create_page, create, update_page, update, delete, create_comment, delete_comment
+from firstapp.views import *
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,5 +31,8 @@ urlpatterns = [
     path('delete/<int:id>/', delete, name="delete"),
     path('detail/<int:id>/comments/create/', create_comment, name="create_comment"),
     path('detail/<int:id>/comments/delete/<int:comment_id>', delete_comment, name="delete_comment"),
+    path('login/', login_view, name = "login"),
+    path('logout/', logout_view, name = "logout"),
+    path('signup/', signup_view, name = "signup" ),
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

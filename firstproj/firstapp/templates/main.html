@@ -14,5 +14,21 @@
 
         <a href= "{% url 'create_page' %}">새 글 쓰러가기</a>
 
+        <nav>
+            <div>
+                <a >User Project</a>
+                <form >
+                {% if user.is_authenticated %} <!-- 로그인된 상태인지 체크 -->
+                    <a href = "{% url 'logout' %}" >로그아웃</a>
+                {% else %} <!--로그인이 되어있지 않은 경우 -->
+                    <a href = "{% url 'login' %}" >로그인</a>
+                    <a href = "{% url 'signup' %}">회원가입</a>
+                {% endif %}
+                </form>
+            </div>
+            </nav>
+            {% if user.is_authenticated %}
+                {{user.username}}님 안녕하세요 !!!!!
+            {% endif %}
 </body>
 </html>

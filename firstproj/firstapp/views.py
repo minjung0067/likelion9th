@@ -1,7 +1,15 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.utils import timezone
+from django.conf import settings
 
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 from .models import Blog, Comment
+
+from django.contrib.auth.models import User
+from django import forms
+
+from django.contrib import messages
+
 
 def main(request):
     blogs = Blog.objects.all()
@@ -81,3 +89,40 @@ def delete_comment(request,id,comment_id):
 
     return redirect('detail',id)
 
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request=request, data = request.POST)
+        if form.is_valid(): #유효성 검사
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request=request, username = username, password=password)
+            if user is not None :
+                login(request, user)
+                return render(request, 'login.html', {'form':form}) 
+            else:
+                return redirect("main")
+        else:
+            return redirect("main")
+    else :
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form':form}) #Get방식
+def logout_view(request):
+    logout(request)
+    return redirect("main")
+
+def signup_view(request):
+    if request.method == "POST": #요청방식이 POST
+        form = UserCreationForm(request.POST)
+        if form.is_valid(): #form 유효성 검사
+            user = form.save()
+            login(request, user)
+            return redirect("main")
+        else:
+            last_messages = messages.get_messages(request)
+            last_messages.used = True
+            messages.info(request, '회원가입 실패ㅠ')
+            return redirect("signup")
+    else: #요청방식이 GET
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form':form})
