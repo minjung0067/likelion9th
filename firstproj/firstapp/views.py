@@ -101,9 +101,15 @@ def login_view(request):
                 login(request, user)
                 return render(request, 'login.html', {'form':form}) 
             else:
-                return redirect("main")
+                last_messages = messages.get_messages(request)
+                last_messages.used = True
+                messages.info(request, '로그인 실패')
+                return redirect("login")
         else:
-            return redirect("main")
+            last_messages = messages.get_messages(request)
+            last_messages.used = True
+            messages.info(request, '로그인 실패')
+            return redirect("login")
     else :
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form}) #Get방식
