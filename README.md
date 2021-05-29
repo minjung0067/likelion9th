@@ -4,5 +4,5 @@
 - foreign key
 - media (static)
 
-## 202105299 session
+## 20210529 session
 - User (Django 기본 내장 User 사용)
