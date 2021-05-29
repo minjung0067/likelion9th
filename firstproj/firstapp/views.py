@@ -99,11 +99,11 @@ def login_view(request):
             user = authenticate(request=request, username = username, password=password)
             if user is not None :
                 login(request, user)
-                return render(request, 'login.html', {'form':form}) 
+                return render(request, 'main.html', {'form':form}) 
             else:
                 last_messages = messages.get_messages(request)
                 last_messages.used = True
-                messages.info(request, '로그인 실패')
+                messages.info(request, '로그인?')
                 return redirect("login")
         else:
             last_messages = messages.get_messages(request)
@@ -113,6 +113,8 @@ def login_view(request):
     else :
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form}) #Get방식
+
+
 def logout_view(request):
     logout(request)
     return redirect("main")
