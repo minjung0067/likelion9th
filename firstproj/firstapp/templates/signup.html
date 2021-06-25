@@ -7,21 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-        <a class="navbar-brand">User Project</a>
-        <form class="d-flex">
-            {% if user.is_authenticated %} <!-- 로그인된 상태인지 체크 -->
-                <a href = "{% url 'logout' %}" >로그아웃</a>
-            {% else %} <!--로그인이 되어있지 않은 경우 -->
-                <a href = "{% url 'login' %}">로그인</a>
-                <a href = "{% url 'signup' %}">회원가입</a>
-            {% endif %}
-        </form>
-        </div>
-    </nav>
-    <!-- Contents -->
+    <form class="d-flex">           
+        {% if user.is_authenticated %} <!-- 로그인된 상태인지 체크 -->
+            <a href = "{% url 'logout' %}" >로그아웃</a>
+        {% else %} <!--로그인이 되어있지 않은 경우 -->
+            <a href = "{% url 'login' %}">로그인</a>
+            <a href = "{% url 'signup' %}">회원가입</a>
+        {% endif %}
+    </form>
+
     <div class = "text-center">
         <h1>회원가입 페이지</h1>
         
