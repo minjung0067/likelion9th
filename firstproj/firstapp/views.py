@@ -1,15 +1,13 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.conf import settings
-
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Blog, Comment
-
 from django.contrib.auth.models import User
 from django import forms
-
 from django.contrib import messages
-
+import datetime
+from django.utils import timezone
 
 def main(request):
     blogs = Blog.objects.all()
