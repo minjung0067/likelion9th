@@ -9,4 +9,4 @@
 
 ## 20210625 session
 - 템플릿 상속
-- 
+- paginator
