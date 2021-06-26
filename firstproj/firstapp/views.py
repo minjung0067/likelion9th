@@ -1,18 +1,26 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.conf import settings
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Blog, Comment
+
 from django.contrib.auth.models import User
 from django import forms
+
 from django.contrib import messages
-import datetime
+from django.core.paginator import Paginator
 from django.utils import timezone
+import datetime
 
 def main(request):
     blogs = Blog.objects.all()
+    paginator = Paginator(blogs,6)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     context = {
-        'blogs' : blogs
+        'blogs' : blogs,
+        'posts' : posts
     }
     return render(request, 'main.html', context)
 
@@ -38,7 +46,7 @@ def create(request):
     new_data.title = request.POST['title']
     new_data.writer = request.POST['writer']
     new_data.body = request.POST['body']
-    new_data.image = request.FILES['image']
+    new_data.image = request.FILES.get('image')
     new_data.pub_date = timezone.now()
     new_data.save()
     return redirect('main')

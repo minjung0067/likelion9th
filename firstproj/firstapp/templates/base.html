@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">BLOG </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'main' %}"> MAIN <span class="sr-only">Main PAGE</span></a>
+                </li>
+                {% if user.is_authenticated %} <!-- 로그인된 상태인지 체크 -->
+                <li class="nav-item">
+                    <a class="nav-link" href = "{% url 'logout' %}" >로그아웃</a>
+                </li>
+                {% else %} <!--로그인이 되어있지 않은 경우 -->
+                <li class="nav-item">
+                    <a class="nav-link" href = "{% url 'login' %}" >로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href = "{% url 'signup' %}">회원가입</a>
+                </li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <span class="navbar-text">
+                {{user.username}}님 안녕하세요 !!!!!
+            </span>
+            {% endif %}
+        </div>
+    </nav>
+<!-- 블로그 글이 들어가는 부분 -->
+<div style="text-align: center;">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+    <div class="card text-center">
+        <div class="card-header">
+            행운의 페이지 
+        </div>
+        <div class="card-body">
+            <h5 class="card-text">I like lion</h5>
+            <p class="card-text">Session by Minjung </p>
+        </div>
+    </div>
+
+    <!-- 페이지마다 text를 넣고 싶다  -->
+{% block content2 %}
+{% endblock %}
+
+</body>
+</html>

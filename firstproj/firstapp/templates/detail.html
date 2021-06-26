@@ -1,35 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail</title>
-</head>
-<body>
-    <h1>제목 : {{title}}</p>
-    <h2>작성자 : {{writer}}</p>
-    <h5>작성일 : {{pub_date}}</p>
-    <p>내용 : {{body}}</p>
-    <img src="{{image.url}}" height = 300>
+{% extends 'base.html' %}
+    {% block content %}
+
+
+    <div class="card text-center">
+        <div class="card-header">
+            {{title}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{writer}}</h5>
+            <p class="card-text">{{body}}</p>
+            <p>by {{writer}}, {{pub_date}}</p>
+            <img src="{{image.url}}" height = 100>
+        </div>
+    </div>
+
 
     <a href="{% url 'update_page' id %}">수정</a>
     <a href="{% url 'delete' id %}">삭제</a>
-    <h4> --------- 댓글 -----------</h4>
 
-    {% for comment in comments %}
-    <p> {{comment.user}} : {{comment.content}} {{comment.date}}</p>
-    <a href="{% url 'delete_comment' id comment.id %}">삭제하기</a>
-    {% endfor %}
+    <ul class="list-group">
+        {% for comment in comments %}
+        <li class="list-group-item disabled" aria-disabled="true"> {{comment.user}} : {{comment.content}} {{comment.date}}</p>
+        <a href="{% url 'delete_comment' id comment.id %}">삭제하기</a>
+        {% endfor %}
+    </ul>
 
 
-    <h4> --------- 댓글 작성하기 -----------</h4>
     <form action="{% url 'create_comment' id %}" method="POST" enctype="multipart/form-data">
         {%csrf_token%}
         <p>사용자 : <input type= "text" name = "user"></p>
         <p> 댓글내용 : <input type= "text" name = "content"></p>
         <button type="submit">작성</button>
     </form>
-
-</body>
-</html>
+</div>
+{% endblock %}
